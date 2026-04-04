@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallary</title>
+    <style>
+        .main-img {
+            width: 500px;
+            height: 300px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .gallary-container {
+            width: fit-content;
+            margin: 10px auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-slide {
+            display: flex;
+            margin-right: 10px;
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid rgb(21, 23, 21);
+            
+        }
+
+        .preview-img {
+            height: 100px;
+            width: 150px;
+            object-fit: cover;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 10px;
+            border: 2px solid transparent;
+        }
+
+        .gallary-prerview {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 30px;
+            width: 60%;
+            margin: 0 auto;
+            overflow-x: scroll;
+        }
+
+        .image-info {
+            width: 500px;
+            margin: 12px auto 0;
+            text-align: left;
+            font-family: Arial, sans-serif;
+        }
+
+        .image-title {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .image-description {
+            margin-top: 8px;
+            color: #444;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="gallary-container">
+        <span class="btn-slide btn-left" onclick="slideLeft()"><b>&lt;</b></span>
+
+        <img src="" alt="image" class="main-img" id="mainImage" />
+
+        <span class="btn-slide btn-right" onclick="slideRight()"><b>&gt;</b></span>
+    </div>
+
+    <div class="image-info">
+        <h3 class="image-title" id="imageTitle"></h3>
+        <p class="image-description" id="imageDescription"></p>
+    </div>
+
+    <div class="gallary-prerview" id="gallary-preview"></div>
+
+    <script>
+        const IMAGES = [
+
+            {
+                url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200",
+                title: "Ocean View",
+                discription: "Relaxing ocean waves with a stunning sunset view."
+            },
+            {
+                url: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1200",
+                title: "Beach",
+                discription: "Sunny beach with golden sand and blue water."
+            },
+            {
+                url: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=1200",
+                title: "Waterfall",
+                discription: "A beautiful waterfall flowing through rocks."
+            },
+            {
+                url: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=1200",
+                title: "Road Trip",
+                discription: "Open road surrounded by mountains and sky."
+            },
+           
+          
+            {
+                url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200",
+                title: "Lake View",
+                discription: "Peaceful lake reflecting the sky."
+            }
+           
+        ];
+
+        let currentIndex = 0;
+
+        function showImageIndex() {
+            const imgElement = document.getElementById("mainImage");
+            const titleElement = document.getElementById("imageTitle");
+            const descriptionElement = document.getElementById("imageDescription");
+
+            const currentImage = IMAGES[currentIndex];
+
+            imgElement.src = currentImage.url;
+            imgElement.alt = currentImage.title;
+            titleElement.innerText = currentImage.title;
+            descriptionElement.innerText = currentImage.discription;
+
+            // highlight active preview
+            document.querySelectorAll(".preview-img").forEach(img => {
+                img.style.border = "2px solid transparent";
+            });
+
+            const activeImg = document.getElementById(`img-${currentIndex}`);
+            if (activeImg) {
+                activeImg.style.border = "2px solid black";
+            }
+        }
+
+        function slideLeft() {
+            if (currentIndex <= 0) {
+                currentIndex = IMAGES.length - 1;
+            } else {
+                currentIndex--;
+            }
+            showImageIndex();
+        }
+
+        function slideRight() {
+            if (currentIndex >= IMAGES.length - 1) {
+                currentIndex = 0;
+            } else {
+                currentIndex++;
+            }
+            showImageIndex();
+        }
+
+        function showImage(Index) {
+            currentIndex = Index;
+            showImageIndex();
+        }
+
+        showImageIndex();
+    </script>
+</body>
+
+</html>
