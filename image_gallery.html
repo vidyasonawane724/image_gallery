@@ -170,6 +170,24 @@
             showImageIndex();
         }
 
+        function createGallaryPreview() {
+            const gallaryPreviewContainer = document.getElementById("gallary-preview");
+
+            gallaryPreviewContainer.innerHTML = "";
+            for (let i = 0; i < IMAGES.length; i++) {
+                const currentImage = IMAGES[i];
+
+                gallaryPreviewContainer.innerHTML += `
+          <img src='${currentImage.url}' 
+          class='preview-img'
+          id='img-${i}'
+          alt='${currentImage.title}'
+          onclick='showImage(${i})'
+          />`;
+            }
+        }
+
+        createGallaryPreview();
         showImageIndex();
     </script>
 </body>
